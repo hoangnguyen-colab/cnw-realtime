@@ -8,7 +8,11 @@ app.use(cors());
 const http = require('http').Server(app);
 const io = require("socket.io")(http, {
     cors: true,
-    origins: ["http://localhost:5000"],
+    origins: [
+        "http://localhost:5000",
+        "cnw-commerce.vercel.app",
+        "admin-cnw-commerce.vercel.app"
+    ],
 });
 
 app.use(body_parser.json());
@@ -30,6 +34,8 @@ app.get('/', (req, res) => {
     res.send('hello world');
 });
 
-http.listen(process.env.PORT, () => {
-    console.log(`listening on : ${process.env.PORT}`);
+const Port = process.env.PORT || 5000;
+
+http.listen(Port, () => {
+    console.log(`listening on : ${Port}`);
 });
