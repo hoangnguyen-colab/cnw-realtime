@@ -14,10 +14,11 @@ const io = require("socket.io")(http, {
 app.use(body_parser.json());
 
 io.on('connection', (socket) => {
-    socket.broadcast.emit('a user connected');
+    console.log('a user connected', socket.socketid);
+    // socket.broadcast.emit('a user connected');
 
-    socket.on('message', (message, callback) => {
-        socket.broadcast.emit('message', message);
+    socket.on('order-placed-client', (message, callback) => {
+        socket.broadcast.emit('order-placed-admin', message);
     });
 
     socket.on('disconnect', () => {
